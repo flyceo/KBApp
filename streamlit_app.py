@@ -20,7 +20,7 @@ df[wertspalte] = df[wertspalte].astype("int32")
 df[herstellerspalte] = df[herstellerspalte].astype("category")
 df[hsnspalte] = df[hsnspalte].astype("category")
 df[tsnspalte] = df[tsnspalte].astype("category")
-df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
+df = df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
