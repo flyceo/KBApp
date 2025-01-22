@@ -15,11 +15,9 @@ TSNSPALTE = "Typ-\nschlüssel-\nnummer"
 WERTSPALTE = "Anzahl"
 AKTJAHR = int(dt.date.today().strftime("%Y"))
 
-jahroffset = 0
-
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
-    global jahroffset
+    jahroffset = 0
     i = 0
     
     while i < 4:
@@ -51,6 +49,8 @@ def daten_laden():
     df[HSNSPALTE] = df[HSNSPALTE].astype("category")
     df[TSNSPALTE] = df[TSNSPALTE].astype("category")
     df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
+    df["Jahr"] = AKTJAHR - jahroffset
+    df["Jahr"] = df["Jahr"].astype("category")
     
     return df
 
@@ -58,7 +58,7 @@ df = daten_laden()
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
-Datenstand *Januar """ + str(AKTJAHR-jahroffset) + """*
+Datenstand *Januar """ + str(df["Jahr"].unique()[0]) + """*
 """)
 
 herstellersuche = ""
@@ -82,7 +82,7 @@ dff = df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contai
 & df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)]
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
-st.write("**" + str(len(dff.index)) + "** Datensätze gefunden.")
+st.write("**" + str(len(dff.index)) + "** Datensätze gefunden, Gesamtsumme **" + str(df["Anzahl"].sum()) + "**)
 st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung")
 
 
