@@ -1,5 +1,5 @@
 from pathlib import Path
-import datetime
+import datetime as dt
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -50,6 +50,6 @@ dff = df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contai
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
 st.write("**" + str(len(dff.index)) + "** Datensätze gefunden.")
-st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + str(datetime.now().date()) + "; [Datenlizenz by-2-0](%s)https://www.govdata.de/dl-de/by-2-0; eigene Darstellung")
+st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + str(dt.date.today()) + "; [Datenlizenz by-2-0](%s)https://www.govdata.de/dl-de/by-2-0; eigene Darstellung")
 
 
