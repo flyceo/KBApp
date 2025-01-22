@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-datei = "fz6_2024.xls"
+DATEI = "fz6_2024.xls"
+URL = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/" + DATEI + "?__blob=publicationFile
 blatt = "FZ 6.1"
 kopfzeile = 7
 herstellerspalte = "Herstellerklartext"
@@ -28,7 +29,7 @@ def daten_laden(url):
     
     return df
 
-df = daten_laden(datei)
+df = daten_laden(URL)
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
