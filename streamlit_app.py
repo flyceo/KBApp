@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-DATEI = "fz6_2024.xls"
-URL = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/" + DATEI + "?__blob=publicationFile
+DATEI = ""
+URL = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/fz6_2024.xls?__blob=publicationFile
 blatt = "FZ 6.1"
 kopfzeile = 7
 herstellerspalte = "Herstellerklartext"
