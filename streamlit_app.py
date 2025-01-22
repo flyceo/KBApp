@@ -17,6 +17,7 @@ aktjahr = int(dt.date.today().strftime("%Y"))
 
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
+    i = 0
     
     while i < 4:
         url = PRAEFIX
