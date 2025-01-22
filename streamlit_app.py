@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-DATEI = "fz6_2024.xls"
-URL = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/" + DATEI + "?__blob=publicationFile"
+PRAEFIX = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/fz6_"
+SUFFIX = "?__blob=publicationFile"
 blatt = "FZ 6.1"
 kopfzeile = 7
 herstellerspalte = "Herstellerklartext"
@@ -15,9 +15,20 @@ tsnspalte = "Typ-\nschlüssel-\nnummer"
 wertspalte = "Anzahl"
 
 @st.cache_data  # 👈 Add the caching decorator
-def daten_laden(url):
+def daten_laden():
     
-    df = pd.read_excel(url, sheet_name=blatt, header=kopfzeile)
+    urls = [PRAEFIX + str(aktjahr) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr) + ".xlsx" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xlsx" + SUFFIX]
+    i=0
+    
+    while i < 4:
+        try: 
+            df = pd.read_excel(urls[3], sheet_name=blatt, header=kopfzeile)
+        except:
+            i=i+1
+        else:
+            i=5
+    return
+        
     df = df.drop(df.columns[[0]], axis=1)
     df = df[~df[wertspalte].isna()]
     df = df.fillna("");
@@ -29,7 +40,7 @@ def daten_laden(url):
     
     return df
 
-df = daten_laden(URL)
+df = daten_laden()
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
