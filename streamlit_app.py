@@ -20,7 +20,7 @@ def daten_laden():
     
     urls = [PRAEFIX + str(aktjahr) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr) + ".xlsx" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xlsx" + SUFFIX]
     i=0
-    df = pd.read_excel(urls[3], sheet_name=blatt, header=kopfzeile)
+    df = pd.read_excel(urls[2], sheet_name=blatt, header=kopfzeile)
     ##while i < 4:
        ## try: 
             
