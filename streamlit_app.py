@@ -20,15 +20,14 @@ def daten_laden():
     
     urls = [PRAEFIX + str(aktjahr) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr) + ".xlsx" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xlsx" + SUFFIX]
     i=0
-    df = pd.read_excel(urls[2], sheet_name=blatt, header=kopfzeile)
-    ##while i < 4:
-       ## try: 
-            
-        ##except:
-        ##    i=i+1
-        ##else:
-        ##    i=5
-   ## return
+    
+    while i < 4:
+        try: 
+            df = pd.read_excel(urls[2], sheet_name=blatt, header=kopfzeile)
+        except:
+            i=i+1
+        else:
+            i=5
         
     df = df.drop(df.columns[[0]], axis=1)
     df = df[~df[wertspalte].isna()]
