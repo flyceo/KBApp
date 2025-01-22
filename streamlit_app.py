@@ -12,14 +12,14 @@ hsnspalte = "Hersteller-\nschlüssel-\nnummer"
 tsnspalte = "Typ-\nschlüssel-\nnummer"
 wertspalte = "Anzahl"
 
-    df = pd.read_excel(datei, sheet_name=blatt, header=kopfzeile)
-    df = df.drop(df.columns[[0]], axis=1)
-    df = df[~df[wertspalte].isna()]
-    df = df.fillna("");
-    df[wertspalte] = df[wertspalte].astype("int32")
-    df[herstellerspalte] = df[herstellerspalte].astype("category")
-    df[hsnspalte] = df[hsnspalte].astype("category")
-    df[tsnspalte] = df[tsnspalte].astype("category")
+df = pd.read_excel(datei, sheet_name=blatt, header=kopfzeile)
+df = df.drop(df.columns[[0]], axis=1)
+df = df[~df[wertspalte].isna()]
+df = df.fillna("");
+df[wertspalte] = df[wertspalte].astype("int32")
+df[herstellerspalte] = df[herstellerspalte].astype("category")
+df[hsnspalte] = df[hsnspalte].astype("category")
+df[tsnspalte] = df[tsnspalte].astype("category")
 
 st.write("""
 # My first app
