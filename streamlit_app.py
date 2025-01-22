@@ -13,6 +13,7 @@ typspalte = "Handelsname"
 hsnspalte = "Hersteller-\nschlüssel-\nnummer"
 tsnspalte = "Typ-\nschlüssel-\nnummer"
 wertspalte = "Anzahl"
+aktjahr = int(dt.date.today().strftime("%Y"))
 
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
