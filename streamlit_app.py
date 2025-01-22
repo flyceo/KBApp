@@ -26,8 +26,12 @@ else:
     df.to_pickle(datei.split(".")[0] + ".pkl")
 
 
-
 st.write("""
 # My first app
 Hello *world!*
 """)
+
+with st.form("suchformular"):
+   st.write("Suche")
+   hsnsuche = st.text_input("HSN")
+   st.form_submit_button("Suchen")
