@@ -32,6 +32,12 @@ Hello *world!*
 """)
 
 with st.form("suchformular"):
-   st.write("Suche")
-   hsnsuche = st.text_input("HSN")
-   st.form_submit_button("Suchen")
+    st.write("Suche")
+    hsnsuche = st.text_input("HSN")
+    tsnsuche = st.text_input("TSN")
+    herstellersuche = st.text_input("Hersteller")
+    typsuche = st.text_input("Typ")
+    st.form_submit_button("Suchen")
+
+df[df[typspalte].str.contains("(?i)" + typsuche) & df[herstellerspalte].str.contains("(?i)" + herstellersuche) 
+& df[hsnspalte].str.contains("(?i)" + hsnsuche) & df[tsnspalte].str.contains("(?i)" + tsnsuche)]
