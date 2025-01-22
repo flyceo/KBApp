@@ -34,10 +34,14 @@ tsnsuche = ""
 
 with st.form("suchformular"):
     st.write("Suche")
-    hsnsuche = st.text_input("HSN")
-    tsnsuche = st.text_input("TSN")
-    herstellersuche = st.text_input("Hersteller")
-    typsuche = st.text_input("Typ")
+    spalte1 = st.columns([1,1])
+    hsnsuche = spalte1[0].text_input("HSN")
+    tsnsuche = spalte1[1].text_input("TSN")
+    
+    spalte2 = st.columns([1,1])
+    herstellersuche = spalte2[0].text_input("Hersteller")
+    typsuche = spalte2[1].text_input("Typ")
+    
     st.form_submit_button("Suchen")
 
 st.dataframe(df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contains("(?i)" + herstellersuche) 
