@@ -13,15 +13,22 @@ hsnspalte = "Hersteller-\nschlüssel-\nnummer"
 tsnspalte = "Typ-\nschlüssel-\nnummer"
 wertspalte = "Anzahl"
 
-df = pd.read_excel(datei, sheet_name=blatt, header=kopfzeile)
-df = df.drop(df.columns[[0]], axis=1)
-df = df[~df[wertspalte].isna()]
-df = df.fillna("");
-df[wertspalte] = df[wertspalte].astype("int32")
-df[herstellerspalte] = df[herstellerspalte].astype("category")
-df[hsnspalte] = df[hsnspalte].astype("category")
-df[tsnspalte] = df[tsnspalte].astype("category")
-df = df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
+@st.cache_data  # 👈 Add the caching decorator
+def daten_laden(url):
+    
+    df = pd.read_excel(url, sheet_name=blatt, header=kopfzeile)
+    df = df.drop(df.columns[[0]], axis=1)
+    df = df[~df[wertspalte].isna()]
+    df = df.fillna("");
+    df[wertspalte] = df[wertspalte].astype("int32")
+    df[herstellerspalte] = df[herstellerspalte].astype("category")
+    df[hsnspalte] = df[hsnspalte].astype("category")
+    df[tsnspalte] = df[tsnspalte].astype("category")
+    df = df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
+    
+    return df
+
+df = daten_laden(datei)
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
