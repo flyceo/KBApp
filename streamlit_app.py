@@ -18,12 +18,21 @@ aktjahr = int(dt.date.today().strftime("%Y"))
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
     
-    urls = [PRAEFIX + str(aktjahr) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr) + ".xlsx" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xls" + SUFFIX, PRAEFIX + str(aktjahr-1) + ".xlsx" + SUFFIX]
-    i=0
-    
     while i < 4:
+        url = PRAEFIX
+        if (i < 2):
+            url = url + str(aktjahr)
+        else:
+            url = url + str(aktjahr-1)   
+        if (i % 2) == 0:
+            url = url + ".xlsx"
+        else:
+            url = url + ".xls"
+
+        url = url + SUFFIX
+        
         try: 
-            df = pd.read_excel(urls[2], sheet_name=blatt, header=kopfzeile)
+            df = pd.read_excel(url, sheet_name=blatt, header=kopfzeile)
         except:
             i=i+1
         else:
