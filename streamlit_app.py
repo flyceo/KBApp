@@ -20,6 +20,7 @@ df[wertspalte] = df[wertspalte].astype("int32")
 df[herstellerspalte] = df[herstellerspalte].astype("category")
 df[hsnspalte] = df[hsnspalte].astype("category")
 df[tsnspalte] = df[tsnspalte].astype("category")
+df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
@@ -39,7 +40,7 @@ with st.form("suchformular"):
     typsuche = st.text_input("Typ")
     st.form_submit_button("Suchen")
 
-st.dataframe(df[df[typspalte].str.contains("(?i)" + typsuche) & df[herstellerspalte].str.contains("(?i)" + herstellersuche) 
-& df[hsnspalte].str.contains("(?i)" + hsnsuche) & df[tsnspalte].str.contains("(?i)" + tsnsuche)], use_container_width=True)
+st.dataframe(df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contains("(?i)" + herstellersuche) 
+& df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)], use_container_width=True, hide_index=True)
 
 
