@@ -78,11 +78,12 @@ with st.form("suchformular"):
     
     st.form_submit_button("Suchen")
 
-dff = df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contains("(?i)" + herstellersuche) 
-& df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)]
+dff = df.drop["Jahr"]
+dff = dff[dff["Typ"].str.contains("(?i)" + typsuche) & dff["Hersteller"].str.contains("(?i)" + herstellersuche) 
+& dff["HSN"].str.contains("(?i)" + hsnsuche) & dff["TSN"].str.contains("(?i)" + tsnsuche)]
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
-st.write("**" + str(len(dff.index)) + "** Datensätze gefunden, Gesamtsumme **" + str(df["Anzahl"].sum()) + "**")
+st.write("**" + str(len(dff.index)) + "** Datensätze gefunden, Gesamtsumme **" + str(dff["Anzahl"].sum()) + "**")
 st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung")
 
 
