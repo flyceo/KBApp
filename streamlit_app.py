@@ -19,6 +19,7 @@ jahroffset = 0
 
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
+    global jahroffset
     i = 0
     
     while i < 4:
