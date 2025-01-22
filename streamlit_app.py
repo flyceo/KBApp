@@ -39,5 +39,7 @@ with st.form("suchformular"):
     typsuche = st.text_input("Typ")
     st.form_submit_button("Suchen")
 
-df[df[typspalte].str.contains("(?i)" + typsuche) & df[herstellerspalte].str.contains("(?i)" + herstellersuche) 
-& df[hsnspalte].str.contains("(?i)" + hsnsuche) & df[tsnspalte].str.contains("(?i)" + tsnsuche)]
+st.dataframe(df[df[typspalte].str.contains("(?i)" + typsuche) & df[herstellerspalte].str.contains("(?i)" + herstellersuche) 
+& df[hsnspalte].str.contains("(?i)" + hsnsuche) & df[tsnspalte].str.contains("(?i)" + tsnsuche)], use_container_width=True)
+
+
