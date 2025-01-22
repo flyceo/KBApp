@@ -6,14 +6,16 @@ import streamlit as st
 
 PRAEFIX = "https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Fahrzeuge/FZ6/fz6_"
 SUFFIX = "?__blob=publicationFile"
-blatt = "FZ 6.1"
-kopfzeile = 7
-herstellerspalte = "Herstellerklartext"
-typspalte = "Handelsname"
-hsnspalte = "Hersteller-\nschlüssel-\nnummer"
-tsnspalte = "Typ-\nschlüssel-\nnummer"
-wertspalte = "Anzahl"
-aktjahr = int(dt.date.today().strftime("%Y"))
+BLATT = "FZ 6.1"
+KOPFZEILE = 7
+HERSTELLERSPALTE = "Herstellerklartext"
+TYPSPALTE = "Handelsname"
+HSNSPALTE = "Hersteller-\nschlüssel-\nnummer"
+TSNSPALTE = "Typ-\nschlüssel-\nnummer"
+WERTSPALTE = "Anzahl"
+AKTJAHR = int(dt.date.today().strftime("%Y"))
+
+jahroffset = 0
 
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
@@ -22,9 +24,10 @@ def daten_laden():
     while i < 4:
         url = PRAEFIX
         if (i < 2):
-            url = url + str(aktjahr)
+            url = url + str(AKTJAHR)
         else:
-            url = url + str(aktjahr-1)   
+            url = url + str(AKTJAHR-1)
+            jahroffset = 1
         if (i % 2) == 0:
             url = url + ".xlsx"
         else:
@@ -33,20 +36,20 @@ def daten_laden():
         url = url + SUFFIX
         
         try: 
-            df = pd.read_excel(url, sheet_name=blatt, header=kopfzeile)
+            df = pd.read_excel(url, sheet_name=BLATT, header=KOPFZEILE)
         except:
             i=i+1
         else:
             i=5
         
     df = df.drop(df.columns[[0]], axis=1)
-    df = df[~df[wertspalte].isna()]
+    df = df[~df[WERTSPALTE].isna()]
     df = df.fillna("");
-    df[wertspalte] = df[wertspalte].astype("int32")
-    df[herstellerspalte] = df[herstellerspalte].astype("category")
-    df[hsnspalte] = df[hsnspalte].astype("category")
-    df[tsnspalte] = df[tsnspalte].astype("category")
-    df = df.rename(columns={herstellerspalte: "Hersteller", typspalte : "Typ", hsnspalte: "HSN", tsnspalte : "TSN"})
+    df[WERTSPALTE] = df[WERTSPALTE].astype("int32")
+    df[HERSTELLERSPALTE] = df[HERSTELLERSPALTE].astype("category")
+    df[HSNSPALTE] = df[HSNSPALTE].astype("category")
+    df[TSNSPALTE] = df[TSNSPALTE].astype("category")
+    df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
     
     return df
 
@@ -54,7 +57,7 @@ df = daten_laden()
 
 st.write("""
 # Fahrzeugbestand nach Herstellern und Typen
-Datenstand *Januar 2024*
+Datenstand *Januar """ + str(AKTJAHR-jahroffset) + """*
 """)
 
 herstellersuche = ""
