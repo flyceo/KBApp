@@ -22,8 +22,8 @@ df[hsnspalte] = df[hsnspalte].astype("category")
 df[tsnspalte] = df[tsnspalte].astype("category")
 
 st.write("""
-# My first app
-Hello *world!*
+# Fahrzeugbestand nach Herstellern und Typen
+Datenstand *Januar 2024*
 """)
 
 herstellersuche = ""
