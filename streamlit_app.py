@@ -48,6 +48,7 @@ dff = df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contai
 & df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)]
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
-st.write("**" + str(len(dff.index)) + "** Datensätze gefunden.  Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), Abrufdatum; Datenlizenz by-2-0; eigene Darstellung")
+st.write("**" + str(len(dff.index)) + "** Datensätze gefunden.")
+st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + str(datetime.date()) + "; [Datenlizenz by-2-0](%s)https://www.govdata.de/dl-de/by-2-0; eigene Darstellung")
 
 
