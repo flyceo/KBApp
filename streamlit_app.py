@@ -44,7 +44,10 @@ with st.form("suchformular"):
     
     st.form_submit_button("Suchen")
 
-st.dataframe(df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contains("(?i)" + herstellersuche) 
-& df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)], use_container_width=True, hide_index=True)
+dff = df[df["Typ"].str.contains("(?i)" + typsuche) & df["Hersteller"].str.contains("(?i)" + herstellersuche) 
+& df["HSN"].str.contains("(?i)" + hsnsuche) & df["TSN"].str.contains("(?i)" + tsnsuche)]
+
+st.dataframe(dff, use_container_width=True, hide_index=True)
+st.write(len(dff.index) + " Daten gefunden"
 
 
