@@ -15,7 +15,7 @@ wertspalte = "Anzahl"
 if Path(datei.split(".")[0] + ".pkl").exists():
     pd.read_pickle(datei.split(".")[0] + ".pkl")
 else:
-    df = pd.read_excel(datei, sheet_name=blatt, header=kopfzeile, engine="openpyxl")
+    df = pd.read_excel(datei, sheet_name=blatt, header=kopfzeile)
     df = df.drop(df.columns[[0]], axis=1)
     df = df[~df[wertspalte].isna()]
     df = df.fillna("");
