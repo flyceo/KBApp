@@ -78,7 +78,7 @@ with st.form("suchformular"):
     
     st.form_submit_button("Suchen")
 
-dff = df.drop["Jahr"]
+dff = df.drop(["Jahr"], axis=1)
 dff = dff[dff["Typ"].str.contains("(?i)" + typsuche) & dff["Hersteller"].str.contains("(?i)" + herstellersuche) 
 & dff["HSN"].str.contains("(?i)" + hsnsuche) & dff["TSN"].str.contains("(?i)" + tsnsuche)]
 
