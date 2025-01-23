@@ -66,7 +66,7 @@ spalte3[0].write("""
 **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
 """)
 spalte4 = st.columns([11,1])
-if spalte4[0].button2("Info"):
+if spalte4[0].button("Info2"):
     infodialog()
 
 
