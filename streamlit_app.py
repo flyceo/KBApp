@@ -41,16 +41,16 @@ def daten_laden():
         else:
             i=5
         
-        df = df.drop(df.columns[[0]], axis=1)
-        df = df[~df[WERTSPALTE].isna()]
-        df = df.fillna("");
-        df[WERTSPALTE] = df[WERTSPALTE].astype("int32")
-        df[HERSTELLERSPALTE] = df[HERSTELLERSPALTE].astype("category")
-        df[HSNSPALTE] = df[HSNSPALTE].astype("category")
-        df[TSNSPALTE] = df[TSNSPALTE].astype("category")
-        df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
-        df["Jahr"] = AKTJAHR - jahroffset
-        df["Jahr"] = df["Jahr"].astype("category")
+    df = df.drop(df.columns[[0]], axis=1)
+    df = df[~df[WERTSPALTE].isna()]
+    df = df.fillna("");
+    df[WERTSPALTE] = df[WERTSPALTE].astype("int32")
+    df[HERSTELLERSPALTE] = df[HERSTELLERSPALTE].astype("category")
+    df[HSNSPALTE] = df[HSNSPALTE].astype("category")
+    df[TSNSPALTE] = df[TSNSPALTE].astype("category")
+    df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
+    df["Jahr"] = AKTJAHR - jahroffset
+    df["Jahr"] = df["Jahr"].astype("category")
         
     return df
 
