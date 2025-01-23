@@ -92,4 +92,4 @@ dff = dff[dff["Typ"].str.contains("(?i)" + typsuche) & dff["Hersteller"].str.con
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
 st.write("**" + str(len(dff.index)) + "** Datensätze gefunden") #, Gesamtsumme **" + str(dff["Anzahl"].sum()) + "**")
-st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung")
+st.write("*Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung*")
