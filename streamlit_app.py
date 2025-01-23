@@ -20,38 +20,46 @@ def daten_laden():
     jahroffset = 0
     i = 0
     
-    while i < 4:
-        url = PRAEFIX
-        if (i < 2):
-            url = url + str(AKTJAHR)
-        else:
-            url = url + str(AKTJAHR-1)
-            jahroffset = 1
-        if (i % 2) == 0:
-            url = url + ".xlsx"
-        else:
-            url = url + ".xls"
-
-        url = url + SUFFIX
-        
-        try: 
-            df = pd.read_excel(url, sheet_name=BLATT, header=KOPFZEILE)
-        except:
-            i=i+1
-        else:
-            i=5
-        
-    df = df.drop(df.columns[[0]], axis=1)
-    df = df[~df[WERTSPALTE].isna()]
-    df = df.fillna("");
-    df[WERTSPALTE] = df[WERTSPALTE].astype("int32")
-    df[HERSTELLERSPALTE] = df[HERSTELLERSPALTE].astype("category")
-    df[HSNSPALTE] = df[HSNSPALTE].astype("category")
-    df[TSNSPALTE] = df[TSNSPALTE].astype("category")
-    df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
-    df["Jahr"] = AKTJAHR - jahroffset
-    df["Jahr"] = df["Jahr"].astype("category")
+    with st.status("Auf Aktualisierungen prüfen...", expanded=True) as status:
+        st.write("Daten suchen...")
+   
     
+        while i < 4:
+            url = PRAEFIX
+            if (i < 2):
+                url = url + str(AKTJAHR)
+            else:
+                url = url + str(AKTJAHR-1)
+                jahroffset = 1
+            if (i % 2) == 0:
+                url = url + ".xlsx"
+            else:
+                url = url + ".xls"
+
+            url = url + SUFFIX
+        
+            try: 
+                df = pd.read_excel(url, sheet_name=BLATT, header=KOPFZEILE)
+            except:
+                i=i+1
+            else:
+                st.write("Aktualisierung geladen, verarbeiten...")
+                i=5
+        
+        df = df.drop(df.columns[[0]], axis=1)
+        df = df[~df[WERTSPALTE].isna()]
+        df = df.fillna("");
+        df[WERTSPALTE] = df[WERTSPALTE].astype("int32")
+        df[HERSTELLERSPALTE] = df[HERSTELLERSPALTE].astype("category")
+        df[HSNSPALTE] = df[HSNSPALTE].astype("category")
+        df[TSNSPALTE] = df[TSNSPALTE].astype("category")
+        df = df.rename(columns={HERSTELLERSPALTE: "Hersteller", TYPSPALTE : "Typ", HSNSPALTE: "HSN", TSNSPALTE : "TSN"})
+        df["Jahr"] = AKTJAHR - jahroffset
+        df["Jahr"] = df["Jahr"].astype("category")
+        
+        status.update(
+            label="Aktualisierung abgeschlossen!", state="complete", expanded=False
+        )
     return df
 
 df = daten_laden()
@@ -83,7 +91,7 @@ dff = dff[dff["Typ"].str.contains("(?i)" + typsuche) & dff["Hersteller"].str.con
 & dff["HSN"].str.contains("(?i)" + hsnsuche) & dff["TSN"].str.contains("(?i)" + tsnsuche)]
 
 st.dataframe(dff, use_container_width=True, hide_index=True)
-st.write("**" + str(len(dff.index)) + "** Datensätze gefunden, Gesamtsumme **" + str(dff["Anzahl"].sum()) + "**")
+st.write("**" + str(len(dff.index)) + "** Datensätze gefunden" #+ ", Gesamtsumme **" + str(dff["Anzahl"].sum()) + "**")
 st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung")
 
 
