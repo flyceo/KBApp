@@ -78,6 +78,7 @@ with st.form("suchformular"):
     st.write("Suche")
     spalte1 = st.columns([1,1])
     hsnsuche = spalte1[0].text_input("HSN")
+    cb = spalte1[0].checkbox("E")
     tsnsuche = spalte1[1].text_input("TSN")
     
     spalte2 = st.columns([1,1])
