@@ -15,6 +15,10 @@ TSNSPALTE = "Typ-\nschlüssel-\nnummer"
 WERTSPALTE = "Anzahl"
 AKTJAHR = int(dt.date.today().strftime("%Y"))
 
+@st.dialog("Cast your vote")
+def infodialog():
+    st.write("Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten. Die Daten werden einmal pro Jahr vom KBA aktualisiert.")
+
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
     jahroffset = 0
@@ -60,6 +64,9 @@ st.write("""
 # Fahrzeugbestand beim KBA
 Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten.  **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
 """)
+
+if st.button("Info"):
+    infodialog()
 
 herstellersuche = ""
 typsuche = ""
