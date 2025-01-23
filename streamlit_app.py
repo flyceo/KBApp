@@ -15,7 +15,7 @@ TSNSPALTE = "Typ-\nschlüssel-\nnummer"
 WERTSPALTE = "Anzahl"
 AKTJAHR = int(dt.date.today().strftime("%Y"))
 
-@st.dialog("Cast your vote")
+@st.dialog("Info")
 def infodialog():
     st.write("Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suchkriterien beinhalten. Die Daten werden einmal pro Jahr vom KBA aktualisiert. Aktueller Datenstand ist der Januar " + str(df["Jahr"].unique()[0]) + ".")
 
@@ -60,12 +60,11 @@ def daten_laden():
 
 df = daten_laden()
 
-spalte3 = st.columns([11,1])
+spalte3, spalte4 = st.columns([11,1])
 spalte3[0].write("""
 # Fahrzeugbestand beim KBA
 **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
 """)
-spalte4 = st.columns([11,1])
 if spalte4[0].button("Info2"):
     infodialog()
 
@@ -85,11 +84,11 @@ tsnsuche = ""
 
 with st.form("suchformular"):
     st.write("Suche")
-    spalte1 = st.columns([1,1])
+    spalte1, spalte2 = st.columns([1,1])
     hsnsuche = spalte1[0].text_input("HSN")
     tsnsuche = spalte1[1].text_input("TSN")
     
-    spalte2 = st.columns([1,1])
+    #spalte2 = st.columns([1,1])
     herstellersuche = spalte2[0].text_input("Hersteller")
     typsuche = spalte2[1].text_input("Typ")
     
