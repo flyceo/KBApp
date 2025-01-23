@@ -60,6 +60,16 @@ def daten_laden():
 
 df = daten_laden()
 
+spalte3 = st.columns([11,1])
+spalte3[0].write("""
+# Fahrzeugbestand beim KBA
+**Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
+""")
+spalte4 = st.columns([11,1])
+if spalte4[0].button("Info"):
+    infodialog()
+
+
 st.write("""
 # Fahrzeugbestand beim KBA
 **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
@@ -92,5 +102,3 @@ dff = dff[dff["Typ"].str.contains("(?i)" + typsuche) & dff["Hersteller"].str.con
 st.dataframe(dff, use_container_width=True, hide_index=True)
 st.write("**" + str(len(dff.index)) + "** Datensätze gefunden") #, Gesamtsumme **" + str(dff["Anzahl"].sum()) + "**")
 st.write("Datenquelle: Kraftfahrt-Bundesamt, Bestand nach Herstellern und Typen (FZ 6), " + dt.date.today().strftime("%d.%m.%Y") + "; [Datenlizenz by-2-0](https://www.govdata.de/dl-de/by-2-0); eigene Darstellung")
-
-
