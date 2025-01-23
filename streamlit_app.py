@@ -20,31 +20,26 @@ def daten_laden():
     jahroffset = 0
     i = 0
     
-    with st.status("Auf Aktualisierungen prüfen...", expanded=True) as status:
-        st.write("Daten suchen...")
-   
-    
-        while i < 4:
-            url = PRAEFIX
-            if (i < 2):
-                url = url + str(AKTJAHR)
-            else:
-                url = url + str(AKTJAHR-1)
-                jahroffset = 1
-            if (i % 2) == 0:
-                url = url + ".xlsx"
-            else:
-                url = url + ".xls"
+    while i < 4:
+        url = PRAEFIX
+        if (i < 2):
+            url = url + str(AKTJAHR)
+        else:
+            url = url + str(AKTJAHR-1)
+            jahroffset = 1
+        if (i % 2) == 0:
+            url = url + ".xlsx"
+        else:
+            url = url + ".xls"
 
-            url = url + SUFFIX
+        url = url + SUFFIX
         
-            try: 
-                df = pd.read_excel(url, sheet_name=BLATT, header=KOPFZEILE)
-            except:
-                i=i+1
-            else:
-                st.write("Aktualisierung geladen, verarbeiten...")
-                i=5
+        try:
+            df = pd.read_excel(url, sheet_name=BLATT, header=KOPFZEILE)
+        except:
+            i=i+1
+        else:
+            i=5
         
         df = df.drop(df.columns[[0]], axis=1)
         df = df[~df[WERTSPALTE].isna()]
@@ -57,9 +52,6 @@ def daten_laden():
         df["Jahr"] = AKTJAHR - jahroffset
         df["Jahr"] = df["Jahr"].astype("category")
         
-        status.update(
-            label="Aktualisierung abgeschlossen!", state="complete", expanded=False
-        )
     return df
 
 df = daten_laden()
