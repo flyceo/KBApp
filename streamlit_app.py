@@ -17,7 +17,7 @@ AKTJAHR = int(dt.date.today().strftime("%Y"))
 
 @st.dialog("Cast your vote")
 def infodialog():
-    st.write("Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten. Die Daten werden einmal pro Jahr vom KBA aktualisiert.")
+    st.write("Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suchkriterien beinhalten. Die Daten werden einmal pro Jahr vom KBA aktualisiert. Aktueller Datenstand ist der Januar " + str(df["Jahr"].unique()[0]) + ".")
 
 @st.cache_data  # 👈 Add the caching decorator
 def daten_laden():
@@ -62,7 +62,7 @@ df = daten_laden()
 
 st.write("""
 # Fahrzeugbestand beim KBA
-Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten.  **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
+**Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
 """)
 
 if st.button("Info"):
