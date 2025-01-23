@@ -60,15 +60,6 @@ def daten_laden():
 
 df = daten_laden()
 
-spalte3, spalte4 = st.columns([11,1])
-spalte3[0].write("""
-# Fahrzeugbestand beim KBA
-**Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
-""")
-if spalte4[0].button("Info2"):
-    infodialog()
-
-
 st.write("""
 # Fahrzeugbestand beim KBA
 **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
