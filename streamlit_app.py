@@ -60,6 +60,15 @@ def daten_laden():
 
 df = daten_laden()
 
+spalte3, spalte4 = st.columns[11, 1]
+spalte3.write("""
+# Fahrzeugbestand beim KBA
+**Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
+""")
+
+if spalte4.button("Info2"):
+    infodialog()
+
 st.write("""
 # Fahrzeugbestand beim KBA
 **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
@@ -75,11 +84,11 @@ tsnsuche = ""
 
 with st.form("suchformular"):
     st.write("Suche")
-    spalte1, spalte2 = st.columns([1,1])
+    spalte1 = st.columns([1,1])
     hsnsuche = spalte1[0].text_input("HSN")
     tsnsuche = spalte1[1].text_input("TSN")
     
-    #spalte2 = st.columns([1,1])
+    spalte2 = st.columns([1,1])
     herstellersuche = spalte2[0].text_input("Hersteller")
     typsuche = spalte2[1].text_input("Typ")
     
