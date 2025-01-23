@@ -57,8 +57,8 @@ def daten_laden():
 df = daten_laden()
 
 st.write("""
-# Fahrzeugbestand nach Herstellern und Typen
-Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten.  Datenstand *Januar """ + str(df["Jahr"].unique()[0]) + """*
+# Fahrzeugbestand beim KBA
+Hier kann die Anzahl der, beim Kraftfahrt-Bundesamt, registrierten Fahrzeuge nach 4 unterschiedlichen Suchkriterien abgefragt werden. Groß- und Kleinschreibung wird nicht beachtet. Über die Checkbox 'Exakt' erhält man nur Suchergebnisse, die mit den Eingaben exakt übereinstimmen. Ansonsten werden Ergebnisse gezeigt, die die Suche beinhalten.  **Datenstand: Januar """ + str(df["Jahr"].unique()[0]) + """**
 """)
 
 herstellersuche = ""
